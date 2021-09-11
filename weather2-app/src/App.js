@@ -6,6 +6,7 @@ import 'weather-icons/css/weather-icons.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Weather from './app_component/weather.component';
+import Form from './app_component/form.component';
 
 
 
@@ -24,7 +25,7 @@ class App extends React.Component {
       description: '',
       error: false
     };
-    this.getWeather();
+
 
     this.weatherIcon = {
       Thunderstorm:'wi-thunderstorm',
@@ -71,7 +72,11 @@ class App extends React.Component {
   }
 
   //**use api data asyncronisly, also use api key to access secure resources, concatinate string */}
-  getWeather = async () =>{
+  getWeather = async (e) =>{
+    e.preventDefault();
+
+
+
     const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=${API_key}`
     );
 
@@ -96,6 +101,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
+      <Form loadweather={this.getWeather}/>
       <Weather
       city={this.state.city}
       country={this.state.country}
